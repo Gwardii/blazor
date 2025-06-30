@@ -1,0 +1,16 @@
+@using BlazorIndependetWebAssemblyNoAndroid.Models
+
+<div>
+    <h3>@GetName()</h3>
+    <p>Date: @GetDateString()</p>
+    <p>Location: @GetLocation()</p>
+</div>
+
+@code {
+    [Parameter]
+    public Event EventItem { get; set; }
+
+    private string GetName() => EventItem?.Name ?? "No name";
+    private string GetDateString() => EventItem?.Date != null ? EventItem.Date.ToString("f") : "No date";
+    private string GetLocation() => EventItem?.Location ?? "No location";
+}

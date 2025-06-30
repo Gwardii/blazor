@@ -1,0 +1,32 @@
+@page "/registerOld"
+@using BlazorIndependetWebAssemblyNoAndroid.Models
+@using BlazorIndependetWebAssemblyNoAndroid.Services
+
+<h1>Event Registration</h1>
+<EditForm Model="@registrationModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <label>Name: </label>
+        <InputText @bind-Value="registrationModel.Name" />
+        <ValidationMessage For="@(() => registrationModel.Name)" />
+    </div>
+    <div>
+        <label>Email: </label>
+        <InputText @bind-Value="registrationModel.Email" />
+        <ValidationMessage For="@(() => registrationModel.Email)" />
+    </div>
+    <button type="submit">Register</button>
+</EditForm>
+<a href="/events">Back to Event List</a>
+<a href="/eventdetails">View Event Details</a>
+@code {
+    [Inject]
+    private SessionService Session { get; set; }
+    private RegistrationModel registrationModel = new RegistrationModel();
+    private void HandleValidSubmit()
+    {
+        Session.UserName = registrationModel.Name; // Set user name in session
+        Console.WriteLine("Registration submitted successfully and session updated");
+    }
+}
